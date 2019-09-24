@@ -1,3 +1,3 @@
 # JavaWeb-Maven
 
-http://localhost:8080/JavaWeb-Maven/?name=Alex
+http://localhost:8080/JavaWeb-Maven
