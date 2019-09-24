@@ -4,4 +4,12 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>Servlet2</servlet-name>
+    <servlet-class>ru.lanit.javaweb.ServletXml</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Servlet2</servlet-name>
+    <url-pattern>/serv2/*</url-pattern>
+  </servlet-mapping>
 </web-app>
