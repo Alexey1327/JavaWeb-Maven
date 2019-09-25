@@ -11,7 +11,7 @@
 <div>
     <form action="" method="get">
         <label>
-            <input type="text" name="name" placeholder="Enter your <%= FormStepServlet.getPlaceHolder()%>"/>
+            <input type="text" name="name" placeholder="<%= FormStepServlet.getPlaceHolder()%>"/>
         </label>
         <br/>
         <button type="submit" formaction="form_step">Next</button>

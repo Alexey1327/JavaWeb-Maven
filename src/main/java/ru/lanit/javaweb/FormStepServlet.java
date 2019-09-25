@@ -59,9 +59,9 @@ public class FormStepServlet extends HttpServlet {
     public static String getPlaceHolder() {
         switch (stepNumber) {
             case 2:
-                return "middle name";
+                return "Enter your middle name";
             case 3:
-                return "last name";
+                return "Enter your last name";
         }
         return "";
     }
