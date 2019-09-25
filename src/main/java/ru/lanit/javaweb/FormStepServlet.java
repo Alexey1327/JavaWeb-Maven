@@ -19,6 +19,9 @@ public class FormStepServlet extends HttpServlet {
     private final static String MIDDLE_NAME_SESSION = "middleName";
     private final static String LAST_NAME_SESSION = "lastName";
 
+    private final static String PLACE_HOLDER_MIDDLE_NAME = "Enter your middle name";
+    private final static String PLACE_HOLDER_LAST_NAME = "Enter your last name";
+
     private static int stepNumber = 1;
 
     @Override
@@ -27,15 +30,18 @@ public class FormStepServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         stepNumber++;
+
+        String formData = req.getParameter(FORM_NAME_PARAMETER);
+
         switch (stepNumber) {
             case 2:
-                session.setAttribute(FIRST_NAME_SESSION, req.getParameter(FORM_NAME_PARAMETER));
+                session.setAttribute(FIRST_NAME_SESSION, formData);
                 break;
             case 3:
-                session.setAttribute(MIDDLE_NAME_SESSION, req.getParameter(FORM_NAME_PARAMETER));
+                session.setAttribute(MIDDLE_NAME_SESSION, formData);
                 break;
             case 4:
-                session.setAttribute(LAST_NAME_SESSION, req.getParameter(FORM_NAME_PARAMETER));
+                session.setAttribute(LAST_NAME_SESSION, formData);
                 break;
         }
 
@@ -59,9 +65,9 @@ public class FormStepServlet extends HttpServlet {
     public static String getPlaceHolder() {
         switch (stepNumber) {
             case 2:
-                return "Enter your middle name";
+                return PLACE_HOLDER_MIDDLE_NAME;
             case 3:
-                return "Enter your last name";
+                return PLACE_HOLDER_LAST_NAME;
         }
         return "";
     }
