@@ -28,6 +28,11 @@ public class FormStepServlet extends HttpServlet {
 
         int stepNumber = incStepNumber(req);
 
+        if (stepNumber == 3) {
+            resetStepNumber(req);
+            resp.sendRedirect(FINAL_URL);
+        }
+
         switch (stepNumber) {
             case 1:
                 saveFirstName(req);
@@ -40,12 +45,7 @@ public class FormStepServlet extends HttpServlet {
                 break;
         }
 
-        if (stepNumber < 3) {
-            req.getRequestDispatcher(JSP_PAGE).forward(req,resp);
-        } else {
-            resetStepNumber(req);
-            resp.sendRedirect(FINAL_URL);
-        }
+        req.getRequestDispatcher(JSP_PAGE).forward(req,resp);
     }
 
     private void saveFirstName(HttpServletRequest req) {
