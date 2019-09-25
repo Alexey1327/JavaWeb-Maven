@@ -5,7 +5,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/form_step")
@@ -19,38 +18,46 @@ public class FormStepServlet extends HttpServlet {
     private final static String MIDDLE_NAME_SESSION = "middleName";
     private final static String LAST_NAME_SESSION = "lastName";
 
+    private final static String STEP_SESSION = "step";
+
     private final static String PLACE_HOLDER_MIDDLE_NAME = "Enter your middle name";
     private final static String PLACE_HOLDER_LAST_NAME = "Enter your last name";
-
-    private static int stepNumber = 1;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HttpSession session = req.getSession();
-
-        stepNumber++;
-
-        String formData = req.getParameter(FORM_NAME_PARAMETER);
+        int stepNumber = incStepNumber(req);
 
         switch (stepNumber) {
+            case 1:
+                saveFirstName(req);
+                break;
             case 2:
-                session.setAttribute(FIRST_NAME_SESSION, formData);
+                saveMiddleName(req);
                 break;
             case 3:
-                session.setAttribute(MIDDLE_NAME_SESSION, formData);
-                break;
-            case 4:
-                session.setAttribute(LAST_NAME_SESSION, formData);
+                saveLastName(req);
                 break;
         }
 
-        if (stepNumber < 4) {
+        if (stepNumber < 3) {
             req.getRequestDispatcher(JSP_PAGE).forward(req,resp);
         } else {
-            stepNumber = 1;
+            resetStepNumber(req);
             resp.sendRedirect(FINAL_URL);
         }
+    }
+
+    private void saveFirstName(HttpServletRequest req) {
+        req.getSession().setAttribute(FIRST_NAME_SESSION, req.getParameter(FORM_NAME_PARAMETER));
+    }
+
+    private void saveMiddleName(HttpServletRequest req) {
+        req.getSession().setAttribute(MIDDLE_NAME_SESSION, req.getParameter(FORM_NAME_PARAMETER));
+    }
+
+    private void saveLastName(HttpServletRequest req) {
+        req.getSession().setAttribute(LAST_NAME_SESSION, req.getParameter(FORM_NAME_PARAMETER));
     }
 
     @Override
@@ -58,12 +65,28 @@ public class FormStepServlet extends HttpServlet {
         doGet(req, resp);
     }
 
-    public static int getStepNumber() {
-        return stepNumber;
+    public static int getNextStepNumber(HttpServletRequest req) {
+        Integer step = (Integer)req.getSession().getAttribute(STEP_SESSION);
+        if (step == null){
+            return 1;
+        } else {
+            return step + 1;
+        }
     }
 
-    public static String getPlaceHolder() {
-        switch (stepNumber) {
+    private static int incStepNumber(HttpServletRequest req) {
+        int nextStep = getNextStepNumber(req);
+        req.getSession().setAttribute(STEP_SESSION, nextStep);
+        return nextStep;
+    }
+
+    private static void resetStepNumber(HttpServletRequest req) {
+        req.getSession().setAttribute(STEP_SESSION, 0);
+    }
+
+    public static String getPlaceHolder(HttpServletRequest req) {
+
+        switch (getNextStepNumber(req)) {
             case 2:
                 return PLACE_HOLDER_MIDDLE_NAME;
             case 3:

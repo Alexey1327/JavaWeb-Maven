@@ -7,11 +7,11 @@
 </head>
 <body>
 
-<h2>Form step #<%= FormStepServlet.getStepNumber()%></h2>
+<h2>Form step #<%= FormStepServlet.getNextStepNumber(request)%></h2>
 <div>
     <form action="" method="get">
         <label>
-            <input type="text" name="name" placeholder="<%= FormStepServlet.getPlaceHolder()%>"/>
+            <input type="text" name="name" placeholder="<%= FormStepServlet.getPlaceHolder(request)%>"/>
         </label>
         <br/>
         <button type="submit" formaction="form_step">Next</button>

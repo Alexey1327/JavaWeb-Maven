@@ -5,7 +5,7 @@
     <title>Form filled!</title>
 </head>
 <body>
-    <h2>Congratulations, <%= PrintServlet.getFullName()%>! You've successfully filled the form!</h2>
+    <h2>Congratulations, <%= PrintServlet.getFullName(request)%>! You've successfully filled the form!</h2>
     <a href="index.jsp">Start again</a>
 </body>
 </html>

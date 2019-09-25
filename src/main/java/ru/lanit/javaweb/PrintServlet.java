@@ -15,15 +15,8 @@ public class PrintServlet extends HttpServlet {
 
     private final static String JSP_PAGE = "print.jsp";
 
-    private static String fullName;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        fullName = session.getAttribute("firstName")
-                + " " + session.getAttribute("middleName")
-                + " " + session.getAttribute("lastName");
-
         req.getRequestDispatcher(JSP_PAGE).forward(req,resp);
     }
 
@@ -32,8 +25,10 @@ public class PrintServlet extends HttpServlet {
         doGet(req, resp);
     }
 
-    public static String getFullName() {
-        return fullName;
+    public static String getFullName(HttpServletRequest req) {
+        return req.getSession().getAttribute("firstName")
+                + " " + req.getSession().getAttribute("middleName")
+                + " " + req.getSession().getAttribute("lastName");
     }
 
 }
