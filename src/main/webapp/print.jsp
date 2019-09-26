@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="ru.lanit.javaweb.PrintServlet" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page import="ru.lanit.javaweb.servlets.PrintServlet" %>
 <html>
 <head>
     <title>Form filled!</title>

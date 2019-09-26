@@ -1,6 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="ru.lanit.javaweb.FormStepServlet" %>
-
+<%@ page contentType="text/html;charset=UTF-8" errorPage ="error.jsp"%>
+<%@ page import="ru.lanit.javaweb.servlets.FormStepServlet" %>
+<%@ page errorPage ="error.jsp"%>
 <html>
 <head>
     <title>Form Step Demo</title>

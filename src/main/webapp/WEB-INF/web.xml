@@ -6,7 +6,7 @@
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
     <servlet-name>PrintServlet</servlet-name>
-    <servlet-class>ru.lanit.javaweb.PrintServlet</servlet-class>
+    <servlet-class>ru.lanit.javaweb.servlets.PrintServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>PrintServlet</servlet-name>

@@ -1,4 +1,4 @@
-package ru.lanit.javaweb;
+package ru.lanit.javaweb.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
