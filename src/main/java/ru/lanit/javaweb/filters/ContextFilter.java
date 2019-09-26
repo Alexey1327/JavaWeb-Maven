@@ -24,9 +24,9 @@ public class ContextFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         ResponseWrapper wrapper = new ResponseWrapper(httpResponse);
-        this.logger.info("\nRequest:\n" + getRequestHeadersAsString(httpRequest));
+        this.logger.info("\nRequest headers:\n" + getRequestHeadersAsString(httpRequest));
         chain.doFilter(request, wrapper);
-        this.logger.info(String.format("\nResponse status - %s, Length: %s" , httpResponse.getStatus(), wrapper.getContentLength()));
+        this.logger.info(String.format("\nResponse:\n\r- Status - %s, Length: %s" , httpResponse.getStatus(), wrapper.getContentLength()));
         response.getOutputStream().write(wrapper.getContent().getBytes());
     }
 
