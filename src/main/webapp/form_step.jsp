@@ -1,20 +1,21 @@
-<%@ page contentType="text/html;charset=UTF-8" errorPage ="error.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="ru.lanit.javaweb.servlets.FormStepServlet" %>
-<%@ page errorPage ="error.jsp"%>
-<html>
-<head>
-    <title>Form Step Demo</title>
-</head>
-<body>
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="i18n"/>
 
-<h2>Form step #<%= FormStepServlet.getNextStepNumber(request)%></h2>
+<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<html lang="${sessionScope.language}">
+<body>
+<h2><fmt:message key="label.step" /><%= FormStepServlet.getNextStepNumber(request)%></h2>
 <div>
     <form action="" method="get">
         <label>
             <input type="text" name="name" placeholder="<%= FormStepServlet.getPlaceHolder(request)%>"/>
         </label>
         <br/>
-        <button type="submit" formaction="form_step">Next</button>
+        <button type="submit" formaction="form_step"><fmt:message key="label.next" /></button>
     </form>
 </div>
 </body>

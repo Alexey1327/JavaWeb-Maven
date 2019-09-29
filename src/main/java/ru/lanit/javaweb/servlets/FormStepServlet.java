@@ -1,5 +1,7 @@
 package ru.lanit.javaweb.servlets;
 
+import ru.lanit.javaweb.i18n.RunTimeTranslator;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +21,6 @@ public class FormStepServlet extends HttpServlet {
     private final static String LAST_NAME_SESSION = "lastName";
 
     private final static String STEP_SESSION = "step";
-
-    private final static String PLACE_HOLDER_MIDDLE_NAME = "Enter your middle name";
-    private final static String PLACE_HOLDER_LAST_NAME = "Enter your last name";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -89,9 +88,9 @@ public class FormStepServlet extends HttpServlet {
 
         switch (getNextStepNumber(req)) {
             case 2:
-                return PLACE_HOLDER_MIDDLE_NAME;
+                return RunTimeTranslator.translate(req, "label.form-midlle-name");
             case 3:
-                return PLACE_HOLDER_LAST_NAME;
+                return RunTimeTranslator.translate(req, "label.form-last-name");
         }
         return "";
     }

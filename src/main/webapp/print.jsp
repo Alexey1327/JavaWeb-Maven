@@ -1,11 +1,14 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="i18n"/>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="ru.lanit.javaweb.servlets.PrintServlet" %>
-<html>
-<head>
-    <title>Form filled!</title>
-</head>
+
+<!DOCTYPE html>
+<html lang="${sessionScope.language}">
 <body>
-    <h2>Congratulations, <%= PrintServlet.getFullName(request)%>! You've successfully filled the form!</h2>
-    <a href="index.jsp">Start again</a>
+<h2><%= PrintServlet.getSuccessMessage(request)%></h2>
+    <a href="index.jsp"><fmt:message key="label.print-page-go-to-start" /></a>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package ru.lanit.javaweb.filters;
 
+import ru.lanit.javaweb.i18n.RunTimeTranslator;
 import ru.lanit.javaweb.servlets.ResponseWrapper;
 
 import javax.servlet.*;
@@ -15,6 +16,10 @@ public class ContextFilter implements Filter {
 
     private final Logger logger = Logger.getLogger(String.valueOf(ContextFilter.class));
 
+    public static final String LANG_PARAMETER_NAME = "language";
+
+    private static final String LANG_DEFAULT = "ru";
+
     @Override
     public void init(FilterConfig filterConfig){}
 
@@ -23,10 +28,19 @@ public class ContextFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
+        if (httpRequest.getParameter(LANG_PARAMETER_NAME) != null) {
+            this.logger.info("Set lang: " + httpRequest.getParameter(LANG_PARAMETER_NAME));
+            httpRequest.getSession().setAttribute(LANG_PARAMETER_NAME, httpRequest.getParameter(LANG_PARAMETER_NAME));
+        } else if (httpRequest.getSession().getAttribute(LANG_PARAMETER_NAME) == null) {
+            this.logger.info("Set default lang!");
+            httpRequest.getSession().setAttribute(LANG_PARAMETER_NAME, LANG_DEFAULT);
+        }
+
         ResponseWrapper wrapper = new ResponseWrapper(httpResponse);
-        this.logger.info("\nRequest headers:\n" + getRequestHeadersAsString(httpRequest));
+
+        this.logger.info(RunTimeTranslator.translate(httpRequest, "log.request-headers") + getRequestHeadersAsString(httpRequest));
         chain.doFilter(request, wrapper);
-        this.logger.info(String.format("\nResponse:\n\r- Status - %s, Length: %s" , httpResponse.getStatus(), wrapper.getContentLength()));
+        this.logger.info(String.format( RunTimeTranslator.translate(httpRequest, "log.response-info"), httpResponse.getStatus(), wrapper.getContentLength()));
         response.getOutputStream().write(wrapper.getContent().getBytes());
     }
 
@@ -35,7 +49,7 @@ public class ContextFilter implements Filter {
         Enumeration headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String paramName = (String)headerNames.nextElement();
-            result.append("\t- ").append(paramName).append(": ").append(request.getHeader(paramName)).append("\n");
+            result.append("\n\t- ").append(paramName).append(": ").append(request.getHeader(paramName));
         }
 
         return result.toString();
