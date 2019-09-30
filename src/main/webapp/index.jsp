@@ -8,6 +8,7 @@
 <html lang="<c:out value="${sessionScope.language}"/>">
 <body>
 <h2><fmt:message key="title.index-page" /></h2>
+<div><img src="images/image.png" alt="OldLady"></div>
 <div style="margin-bottom: 20px">
     <label><fmt:message key="label.language" /></label>
     <a href="?language=en">English</a>

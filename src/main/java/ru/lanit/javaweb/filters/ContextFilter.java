@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.logging.Logger;
 
@@ -18,7 +19,7 @@ public class ContextFilter implements Filter {
 
     public static final String LANG_PARAMETER_NAME = "language";
 
-    private static final String LANG_DEFAULT = "ru";
+    public static final String LANG_DEFAULT = "ru";
 
     @Override
     public void init(FilterConfig filterConfig){}
@@ -41,7 +42,7 @@ public class ContextFilter implements Filter {
         this.logger.info(RunTimeTranslator.translate(httpRequest, "log.request-headers") + getRequestHeadersAsString(httpRequest));
         chain.doFilter(request, wrapper);
         this.logger.info(String.format( RunTimeTranslator.translate(httpRequest, "log.response-info"), httpResponse.getStatus(), wrapper.getContentLength()));
-        response.getOutputStream().write(wrapper.getContent().getBytes());
+        response.getOutputStream().write(wrapper.getContent().getBytes(StandardCharsets.UTF_8));
     }
 
     private String getRequestHeadersAsString(HttpServletRequest request) {
