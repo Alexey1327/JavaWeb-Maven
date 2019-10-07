@@ -88,7 +88,7 @@ public class FormStepServlet extends HttpServlet {
 
         switch (getNextStepNumber(req)) {
             case 2:
-                return RunTimeTranslator.translate(req, "label.form-midlle-name");
+                return RunTimeTranslator.translate(req, "label.form-middle-name");
             case 3:
                 return RunTimeTranslator.translate(req, "label.form-last-name");
         }
